@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Container for forgot password form -->
+    <div class="container">
+        <!-- Heading for forgot password -->
+        <h1>Forgot Password</h1>
+        <!-- Form for username and secret question -->
+        <form id="forgot-password-form">
+            <!-- Username input field -->
+            <div class="form-group">
+                <label for="forgot-username">Username:</label>
+                <input type="text" id="forgot-username" name="forgot-username" required>
+            </div>
+            <!-- Section for secret question (hidden by default) -->
+            <div id="secret-question-group" class="form-group" style="display: none;">
+                <!-- Display secret question text -->
+                <p>Your secret question is :</p>
+                <p id="secret-question-text"></p>
+                <!-- Input field for secret answer -->
+                <label for="secret-answer">Answer to secret question: </label>
+                <input type="text" id="secret-answer" name="secret-answer">
+            </div>
+            <!-- Button to submit form -->
+            <div class="form-group">
+                <button type="submit" id="forgot_submit">Submit</button>
+            </div>
+            <!-- Display password (hidden by default) -->
+            <p id="password-display" style="display: none;"></p>
+        </form>
+        <!-- Button to go back to login page -->
+        <button id="gobacklogin" onclick="gobacktologin()">Go back to Login</button>
+    </div>
+
+    <!-- JavaScript code -->
+    <script>
+        // Function to play click sound
+        // function playClickSound() {
+        //     const clickSound = new Audio('./images/clicked.mp3');
+        //     clickSound.play();
+        // }
+
+        // Function to navigate back to login page
+        function gobacktologin() {
+            // playClickSound();
+            window.location.href = 'login.html';
+        }
+
+        // Event listener when the DOM content is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Event listener for the forgot password form submission
+            document.getElementById('forgot-password-form').addEventListener('submit', (function() {
+                // Variable to store the current user data
+                let currentUser = null;
+
+                return function(event) {
+                    event.preventDefault();
+
+                    // Retrieve form elements
+                    const forgotUsername = document.getElementById('forgot-username').value;
+                    const secretQuestionGroup = document.getElementById('secret-question-group');
+                    const secretAnswerInput = document.getElementById('secret-answer');
+                    const secretQuestionText = document.getElementById('secret-question-text');
+                    const passwordDisplay = document.getElementById('password-display');
+
+                    // If secret question group is visible and secret answer is provided
+                    if (secretQuestionGroup.style.display !== 'none' && secretAnswerInput.value) {
+                        // Check if secret answer is correct
+                        if (secretAnswerInput.value === currentUser.secret_answer) {
+                            // Display password and hide secret question group
+                            passwordDisplay.textContent = 'Your password is: ' + currentUser.password;
+                            passwordDisplay.style.display = 'block';
+                            secretQuestionGroup.style.display = 'none';
+                            currentUser = null; // Reset current user
+                        } else {
+                            alert('Incorrect answer. Please try again.');
+                        }
+                    } else {
+                        // Fetch login data from login.json
+                        fetch('login.json')
+                            .then(response => response.json())
+                            .then(users => {
+                                // Find user by username
+                                const user = users.find(u => u.username === forgotUsername);
+                                if (user) {
+                                    currentUser = user; // Store current user data
+                                    secretQuestionText.textContent = user.secret_question; // Display secret question
+                                    secretQuestionGroup.style.display = 'block'; // Show secret question group
+                                } else {
+                                    alert('Username not found. Please try again.');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error fetching user data:', error);
+                                alert('An error occurred. Please try again later.');
+                            });
+                    }
+                };
+            })());
+        });
+    </script>
+</body>
+
+</html>

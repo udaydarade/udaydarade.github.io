@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dating Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Container for login form -->
+    <div class="container">
+        <!-- Heading about the beauty of the moon -->
+        <h1 class="moonheading">The <span class="moon">Moon</span> is beautiful, isn't it?</h1>
+        <!-- Welcome message -->
+        <h1 class="headwelcome">Welcome to LUNALOVE</h1>
+        <h3>Enter any id and password if you want to check out the website :) </h3>
+        <!-- Login form -->
+        <form>
+            <!-- Username input field -->
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" onclick="playClickSound()" required>
+            </div>
+            <!-- Password input field -->
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" onclick="playClickSound()" required>
+            </div>
+            <!-- Login button -->
+            <div class="form-group">
+                <button type="submit" id="login-submit" onclick="playClickSound()">Login</button>
+            </div>
+            <!-- Forgot password button -->
+            <button id="forgot-password-button" class="forgot-password-button">Forgot Password?</button>
+            <!-- Audio element for click sound -->
+            <audio src="./images/clicked.mp3" id="clicksound" preload="auto"></audio>
+        </form>
+    </div>
+    <!-- JavaScript code -->
+    <script>
+        // Function to play click sound
+        // function playClickSound() {
+        //     const clickSound = new Audio('./images/clicked.mp3');
+        //     clickSound.play();
+        // }
+
+        // Event listener when the DOM content is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            // Event listener for the login button
+            const loginButton = document.getElementById('login-submit');
+            loginButton.addEventListener('click', function (event) {
+                event.preventDefault();
+                // Play click sound on button click
+                // const clicksound = document.getElementById('clicksound');
+                // clicksound.currentTime = 0;
+                // clicksound.play();
+
+                // Get username and password input fields
+                const usernameInput = document.getElementById('username');
+                const passwordInput = document.getElementById('password');
+                window.location.href = 'dating.html'; 
+                // Fetch login data from login.json
+                // fetch('login.json')
+                //     .then(response => response.json())
+                //     .then(users => {
+                //         let loggedIn = false;
+                //         // Loop through users to check for valid credentials
+                //         for (const user of users) {
+                //             if (user.username === usernameInput.value && user.password === passwordInput.value) {
+                //                 loggedIn = true;
+                //                 break;
+                //             }
+                //         }
+
+                //         // Redirect to dating.html if login is successful, else show alert
+                //         if (loggedIn) {
+                //             window.location.href = 'dating.html';
+                //         } else {
+                //             // alert('Oops! Username or password is incorrect. Please try again or use Forgot Password to recover password.');
+                //             window.location.href = 'dating.html';        
+                //         }
+                //     })
+                //     .catch(error => {
+                //         console.error('Error fetching login data:', error);
+                //         alert('An error occurred. Please try logging in again.');
+                //     });
+            });
+
+            // Event listener for the forgot password button
+            const forgotPasswordButton = document.getElementById('forgot-password-button');
+            forgotPasswordButton.addEventListener('click', function () {
+                window.location.href = 'forgot.html';
+            });
+        });
+    </script>
+</body>
+</html>

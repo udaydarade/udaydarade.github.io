@@ -1,0 +1,339 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    animation: backgroundChange 20s infinite;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes backgroundChange {
+    0% {
+        background-image: url(./imagesused/Designer\ \(1\).png);
+    }
+    20% {
+        background-image: url(./imagesused/firstimage.png);
+    }
+    40% {
+        background-image: url(./imagesused/Designer\ \(2\).png);
+    }
+    60% {
+        background-image: url(./imagesused/Designer\ \(3\).png);
+    }
+    80% {
+        background-image: url(./imagesused/newimage.png);
+    }
+    100% {
+        background-image: url(./imagesused/Designer\ \(1\).png);
+    }
+}
+
+.container {
+    margin-top: 200px;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0);
+    height: 60vh;
+    width: 71vh;
+    text-align: center;
+    animation: fadeIn 3s ease-in-out;
+}
+
+.moonheading {
+    display: inline-block;
+    font-size: 1.6em;
+}
+
+.moonheading {
+    font-weight: bold;
+    background-image: linear-gradient(90deg, 
+                                  rgb(139, 0, 139),   /* Dark Magenta */
+                                  rgb(0, 100, 0),     /* Dark Green */
+                                  rgb(0, 191, 255),   /* Deep Sky Blue */
+                                  rgb(255, 140, 0),   /* Dark Orange */
+                                  rgb(148, 0, 211),   /* Dark Violet */
+                                  rgb(255, 20, 147),  /* Deep Pink */
+                                  rgb(75, 0, 130));   /* Indigo */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rainbow 10s infinite, circular-shake 10s infinite alternate , popInOut 8s infinite;
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-10px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(10px);
+    }
+}
+
+@keyframes rainbow {
+    0%, 100% {
+        filter: hue-rotate(0deg);
+    }
+    50% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+@keyframes circular-shake {
+    0%, 100% {
+        transform: rotate(0deg) translate(0, 0);
+    }
+    25% {
+        transform: rotate(2deg)  scale(1);
+    }
+    50% {
+        transform: rotate(-2deg) scale(1);
+    }
+    75% {
+        transform: rotate(2deg) scale(1);
+    }
+}
+
+.headwelcome {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #f06292;
+    animation: nameColorChange 8s infinite alternate;
+}
+
+@keyframes popInOut {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes nameColorChange {
+    0% {
+      color: #e73772;
+    }
+    20% {
+      color: #cb53e0; 
+    }
+    40% {
+      color: #4170c0; 
+    }
+    60% {
+        color: #46cbd2;
+      }
+      80% {
+        color: #a43e29; 
+      }
+      100% {
+        color: #f63776; 
+      }
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold;
+}
+
+#password,
+#username {
+    width: 60%;
+    height: 50px;
+    padding:0 10px 0 45px;
+    background-color: rgba(22, 9, 50, 0.15);
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    outline: none;
+    border: none;
+    transition:  0.3s ease-in-out;
+    border-radius: 30px;
+}
+
+#password:hover,
+#username:hover {
+    background-color: rgba(22, 9, 50, 0.25);
+}
+
+#login-submit,#forgot-password-button , #forgot_submit, #gobacklogin , #findpercentageallin {
+    background-color: #f06292;
+    color: white;
+    padding: 10px 20px;
+    margin: 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#login-submit:hover , #forgot-password-button:hover, #forgot_submit:hover, #gobacklogin:hover, #findpercentageallin:hover{
+    background-color: #d74a7a;
+    transform: scale(1.2);
+}
+
+.form-group div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-left: 15rem;
+    margin-right: 15rem;
+}
+
+.checkbox-group {
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.dating-container {
+    margin-top: 50px;
+    max-width: 60%;
+    padding: 20px;
+    text-align: center;
+    animation: entrance 2s ease-in-out forwards;
+}
+
+#match-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"] {
+    width: 30%;
+    max-width: 100%;
+    padding: 10px;
+    border: 1px solid #534c4c;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: rgba(171, 211, 228, 0.5);
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.checkbox-group label {
+    margin-right: 10px;
+    color: #e56462;
+}
+
+.datingformheadings {
+    font-size: 20px;
+    color: rgb(215, 104, 141);
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+button[type="dating-submit"] {
+    background-color: #cb4698;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+button[type="dating-submit"]:hover {
+    transform: scale(1.2);
+    background-color: #d24a5a;
+}
+
+@keyframes entrance {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+#scrollprofiles,
+#reset-form ,
+#goback {
+    background-color: #5ccb60;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    margin: 10px;
+}
+
+#scrollprofiles:hover,
+#reset-form:hover,
+#goback:hover {
+    transform: scale(1.05);
+    background-color: #5ccb60;
+}
+
+#logoutbutton {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 999;
+    width: 100px;
+    border-radius: 50%;
+}
+
+#logoutbutton:hover {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 999;
+    width: 120px;
+    border-radius: 50%;
+}
+
+#backbutton {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 999;
+    width: 100px;
+    border-radius: 50%;
+}
+
+#backbutton:hover {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 999;
+    width: 120px;
+    border-radius: 50%;
+}

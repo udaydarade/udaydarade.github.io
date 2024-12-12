@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Your Match</title>
+  <!-- CSS styles -->
+  <style>
+    /* Body styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-image: url(./images/swipeimage.png); /* Background image */
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    /* Container styling */
+    .container {
+      transform: translateY(-60px) translateX(20px);
+      text-align: center;
+    }
+    /* Swipe heading styling */
+    #swipeheading {
+      font-weight: bold;
+      /* Gradient text */
+      background-image: linear-gradient(90deg, rgb(255, 20, 147), rgb(255, 140, 0), rgb(0, 191, 255), rgb(0, 100, 0), rgb(139, 0, 139), rgb(148, 0, 211), rgb(75, 0, 130));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    /* Profile container styling */
+    .profile-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+      width: 400px;
+      position: relative;
+      transition: transform 0.3s ease-in-out;
+      /* Background gradient animation */
+      background-image: linear-gradient(90deg, #ADD8E6, #87CEEB, #00BFFF);
+      animation: grow 10s infinite alternate;
+    }
+    /* Keyframe animation */
+    @keyframes grow {
+      0% { transform: scale(1); }
+      10% { transform: scale(1.02); }
+      20% { transform: scale(1.04); }
+      30% { transform: scale(1.06); }
+      40% { transform: scale(1.08); }
+      50% { transform: scale(1.10); }
+      60% { transform: scale(1.08); }
+      70% { transform: scale(1.06); }
+      80% { transform: scale(1.04); }
+      90% { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+    /* Profile image styling */
+    .profile-image {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    /* Profile info styling */
+    .profile-info {
+      margin-left: 20px;
+    }
+    /* Profile name styling */
+    .profile-name {
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+    /* Profile details styling */
+    .profile-details {
+      margin-bottom: 5px;
+    }
+    /* Detail label styling */
+    .detail-label {
+      font-weight: bold;
+      margin-right: 5px;
+    }
+    /* Swipe button styling */
+    .swipe-button {
+      background-color: #3399ff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin: 10px;
+    }
+    /* Swiping animation */
+    .profile-container.swiping {
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+    /* Opacity for swiped profiles */
+    .profile-container.out-left,
+    .profile-container.out-right {
+      opacity: 0.5;
+    }
+    /* Previous and next button styling */
+    #prev-button,
+    #next-button {
+      position: fixed;
+      top: 50%;
+      width: 100px;
+      height: 100px;
+      transform: translateY(-50%);
+      border-radius: 50%;
+    }
+    /* Previous button styling */
+    #prev-button {
+      left: 20px;
+    }
+    /* Next button styling */
+    #next-button {
+      right: 20px;
+    }
+    /* Logout button styling */
+    #logoutbutton {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 999;
+      width: 100px;
+      border-radius: 50%;
+    }
+    /* Hover effect for logout button */
+    #logoutbutton:hover {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 999;
+      width: 120px;
+      border-radius: 50%;
+    }
+    /* Back button styling */
+    #backbutton {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 999;
+      width: 100px;
+      border-radius: 50%;
+    }
+    /* Hover effect for back button */
+    #backbutton:hover {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 999;
+      width: 120px;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wholepage">
+    <!-- Main container -->
+    <div class="container">
+      <!-- Heading for swiping -->
+      <h1 id="swipeheading">Swipe through profiles</h1>
+      <!-- Profile container -->
+      <div class="profile-container">
+        <!-- Profile image -->
+        <img src="" alt="Profile Picture" class="profile-image">
+        <!-- Profile information -->
+        <div class="profile-info">
+          <!-- Profile name -->
+          <h2 class="profile-name">Name</h2>
+          <!-- Profile details -->
+          <p class="profile-details">
+            <span class="detail-label">IITB Roll Number:</span>
+            <span class="detail-value" id="roll-number"></span>
+          </p>
+          <p class="profile-details">
+            <span class="detail-label">Year of Study:</span>
+            <span class="detail-value" id="year-of-study"></span>
+          </p>
+          <p class="profile-details">
+            <span class="detail-label">Age:</span>
+            <span class="detail-value" id="age"></span>
+          </p>
+          <p class="profile-details">
+            <span class="detail-label">Gender:</span>
+            <span class="detail-value" id="gender"></span>
+          </p>
+          <p class="profile-details">
+            <span class="detail-label">Interests:</span>
+            <span class="detail-value" id="interests"></span>
+          </p>
+          <p class="profile-details">
+            <span class="detail-label">Hobbies:</span>
+            <span class="detail-value" id="hobbies"></span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- Previous button -->
+    <img src="./images/back_button.png" alt="Previous" id="prev-button" style="cursor: pointer;">
+    <!-- Sound for previous button -->
+    <!-- <audio id="backimagesound" src="./images/back.mp3" preload="auto"></audio> -->
+    <!-- Next button -->
+    <img src="./images/front button.png" alt="Next" id="next-button" style="cursor: pointer;">
+    <!-- Sound for next button -->
+    <!-- <audio id="nextbuttonsound" src="images/next.mp3" preload="auto"></audio> -->
+    <!-- Logout button -->
+    <img src="images/logoutbutton.png" alt="Logout" id="logoutbutton" style="cursor: pointer;">
+    <!-- Click sound for buttons -->
+    <audio src="images/clicked.mp3" id="clickaudio" preload="auto"></audio>
+    <!-- Back button -->
+    <img src="images/gobackbutton.png" alt="Back" id="backbutton" style="cursor: pointer;">
+  </div>
+  <script>
+    // Selectors for various elements
+    const profileContainer = document.querySelector('.profile-container');
+    const profileImage = document.querySelector('.profile-image');
+    const profileName = document.querySelector('.profile-name');
+    const rollNumberValue = document.getElementById('roll-number');
+    const yearOfStudyValue = document.getElementById('year-of-study');
+    const ageValue = document.getElementById('age');
+    const genderValue = document.getElementById('gender');
+    const interestsValue = document.getElementById('interests');
+    const hobbiesValue = document.getElementById('hobbies');
+    const prevButton = document.getElementById('prev-button');
+    const nextButton = document.getElementById('next-button');
+    const prevSound = document.getElementById('backimagesound');
+    const nextSound = document.getElementById('nextbuttonsound');
+    let currentProfileIndex = 0;
+    let profiles = [];
+    // Fetch profiles data from JSON file
+    fetch('students.json')
+      .then(response => response.json())
+      .then(data => {
+        profiles = data;
+        displayProfile(currentProfileIndex);
+      })
+      .catch(error => console.error('Error fetching data:', error));
+    // Function to display profile
+    function displayProfile(index) {
+      const profile = profiles[index];
+      profileImage.src = profile.Photo;  // Make sure the profile image URLs are relative to the /images folder if they are stored there
+      profileName.textContent = profile.Name;
+      rollNumberValue.textContent = profile['IITB Roll Number'];
+      yearOfStudyValue.textContent = profile['Year of Study'];
+      ageValue.textContent = profile.Age;
+      genderValue.textContent = profile.Gender;
+      interestsValue.textContent = profile.Interests.join(', ');
+      hobbiesValue.textContent = profile.Hobbies.join(', ');
+    }
+    // Event listener for next button
+    nextButton.addEventListener('click', () => {
+      // Play sound for previous button
+      // prevSound.currentTime = 0;
+      // prevSound.play();
+      currentProfileIndex++;
+      if (currentProfileIndex >= profiles.length) {
+        currentProfileIndex = profiles.length - 1;
+      }
+      displayProfile(currentProfileIndex);
+    });
+    // Event listener for previous button
+    prevButton.addEventListener('click', () => {
+      // Play sound for next button
+      // nextSound.currentTime = 0;
+      // nextSound.play();
+      currentProfileIndex--;
+      if (currentProfileIndex < 0) {
+        currentProfileIndex = 0;
+      }
+      displayProfile(currentProfileIndex);
+    });
+    // Event listener for logout button
+    logoutbutton.addEventListener('click', () => {
+      // Redirect to login page
+      window.location.href = 'login.html'
+    })
+    // Event listener for back button
+    backbutton.addEventListener('click', () => {
+      // Redirect to previous page
+      window.location.href = 'dating.html'
+    })
+  </script>
+</body>
+
+
+</html>

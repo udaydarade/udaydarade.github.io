@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Your Match</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="dating-container">
+        <h1>Find Your Match!</h1>
+        <form id="match-form" action="#">
+            <div class="form-group">
+                <label for="roll-number" class="datingformheadings">IITB Roll Number:</label>
+                <input type="text" id="roll-number" name="roll-number" onclick="playClickSound()" required>
+            </div>
+            <div class="form-group">
+                <label for="name" class="datingformheadings">Name:</label>
+                <input type="text" id="name" name="name" onclick="playClickSound()" required>
+            </div>
+            <div class="form-group">
+                <label for="year-of-study" class="datingformheadings">Year of Study:</label>
+                <input type="number" id="year-of-study" name="year-of-study" onclick="playClickSound()" required>
+            </div>
+            <div class="form-group">
+                <label for="age" class="datingformheadings">Age:</label>
+                <input type="number" id="age" name="age" onclick="playClickSound()" required>
+            </div>
+            <div class="form-group">
+                <label for="dating-email" class="datingformheadings">Email:</label>
+                <input type="email" id="dating-email" name="email" onclick="playClickSound()" required>
+            </div>
+            <div class="form-group">
+                <label class="datingformheadings">Gender:</label>
+                <div>
+                    <input type="radio" id="male" name="gender" value="male">
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" name="gender" value="female">
+                    <label for="female">Female</label>
+                    <input type="radio" id="other" name="gender" value="other">
+                    <label for="other">Other</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="datingformheadings">Interests:</label>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="Traveling" name="interests" value="Traveling" onclick="playClickSound()">
+                    <label for="Traveling" style="display: inline-block; width: 110px;">Traveling</label>
+                    <input type="checkbox" id="Sports" name="interests" value="Sports" onclick="playClickSound()">
+                    <label for="Sports" style="display: inline-block; width: 110px;">Sports</label>
+                    <input type="checkbox" id="Movies" name="interests" value="Movies" onclick="playClickSound()">
+                    <label for="Movies" style="display: inline-block; width: 110px;">Movies</label>
+                    <input type="checkbox" id="Music" name="interests" value="Music" onclick="playClickSound()">
+                    <label for="Music" style="display: inline-block; width: 110px;">Music</label>
+                    <input type="checkbox" id="Literature" name="interests" value="Literature" onclick="playClickSound()">
+                    <label for="Literature" style="display: inline-block; width: 110px;">Literature</label>
+                    <input type="checkbox" id="Technology" name="interests" value="Technology" onclick="playClickSound()">
+                    <label for="Technology" style="display: inline-block; width: 110px;">Technology</label>
+                    <input type="checkbox" id="Fashion" name="interests" value="Fashion" onclick="playClickSound()">
+                    <label for="Fashion" style="display: inline-block; width: 110px;">Fashion</label>
+                    <input type="checkbox" id="Art" name="interests" value="Art" onclick="playClickSound()">
+                    <label for="Art" style="display: inline-block; width: 110px;">Art</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="datingformheadings">Hobbies:</label>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="Reading" name="hobbies" value="Reading" onclick="playClickSound()">
+                    <label for="Reading" style="display: inline-block; width: 180px;">Reading</label>
+                    <input type="checkbox" id="Cooking" name="hobbies" value="Cooking" onclick="playClickSound()">
+                    <label for="Cooking" style="display: inline-block; width: 180px;">Cooking</label>
+                    <input type="checkbox" id="Coding" name="hobbies" value="Coding" onclick="playClickSound()">
+                    <label for="Coding" style="display: inline-block; width: 180px;">Coding</label>
+                    <input type="checkbox" id="Gardening" name="hobbies" value="Gardening" onclick="playClickSound()">
+                    <label for="Gardening" style="display: inline-block; width: 180px;">Gardening</label>
+                    <input type="checkbox" id="Painting" name="hobbies" value="Painting" onclick="playClickSound()">
+                    <label for="Painting" style="display: inline-block; width: 180px;">Painting</label>
+                    <input type="checkbox" id="Watching-YouTube-Instagram" name="hobbies"
+                        value="Watching YouTube/Instagram" onclick="playClickSound()">
+                    <label for="Watching-YouTube-Instagram" style="display: inline-block; width: 180px;">Watching
+                        YouTube/Instagram</label>
+                    <input type="checkbox" id="Playing-Musical-Instruments" name="hobbies"
+                        value="Playing Musical Instruments" onclick="playClickSound()">
+                    <label for="Playing-Musical-Instruments" style="display: inline-block; width: 180px;">Playing
+                        Musical Instruments</label>
+                    <input type="checkbox" id="Photography" name="hobbies" value="Photography" onclick="playClickSound()">
+                    <label for="Photography" style="display: inline-block; width: 180px;">Photography</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="dating-submit">Find Match</button>
+            </div>
+            <div class="form-group" id="button-group">
+                <button id="scrollprofiles" onclick="redirectscrollorswipe()">Scroll through Profiles</button>
+                <button id="reset-form" onclick="redirecttologin()">Logout</button>
+                <button id="findpercentageallin" onclick="findpercentageall()">Find percentage match with all profiles ??</button>
+            </div>
+        </form>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

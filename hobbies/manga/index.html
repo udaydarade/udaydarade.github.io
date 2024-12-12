@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Manga Universe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a1a2e;
+            --secondary-color: #4831d4;
+            --accent-color: #ccf381;
+            --background-color: #16213e;
+            --text-color: #e94560;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            perspective: 1000px;
+            overflow-x: hidden;
+        }
+
+        .cosmic-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--accent-color);
+            text-align: center;
+            padding: 2rem;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            position: relative;
+            z-index: 10;
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow: 0 0 10px rgba(204, 243, 129, 0.7);
+        }
+
+        .manga-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+
+        .manga {
+            background: linear-gradient(145deg, #2d3250, #1b1e2f);
+            border-radius: 15px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: all 0.5s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--secondary-color);
+        }
+
+        .manga::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 10px,
+                rgba(72, 49, 212, 0.1) 10px,
+                rgba(72, 49, 212, 0.1) 20px
+            );
+            animation: rotate 20s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .manga:hover {
+            transform: rotateX(10deg) rotateY(10deg) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .manga h2 {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+            transition: color 0.3s ease;
+        }
+
+        .manga:hover h2 {
+            color: white;
+        }
+
+        .manga-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--secondary-color);
+            color: var(--accent-color);
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .manga:hover .manga-tag {
+            opacity: 1;
+        }
+
+        .filter-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: var(--secondary-color);
+            color: var(--accent-color);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        @media screen and (max-width: 768px) {
+            .manga-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cosmic-background" id="starBackground"></div>
+    <header>
+        <h1>My Manga Universe</h1>
+    </header>
+
+    <div class="filter-controls">
+        <button class="filter-btn active" data-filter="all">All Manga</button>
+        <button class="filter-btn" data-filter="action">Action</button>
+        <button class="filter-btn" data-filter="supernatural">Supernatural</button>
+        <button class="filter-btn" data-filter="sports">Sports</button>
+    </div>
+
+    <div class="manga-list">
+        <div class="manga" data-category="supernatural">
+            <h2>Demon Slayer</h2>
+            <div class="manga-tag">Supernatural</div>
+        </div>
+        <div class="manga" data-category="supernatural">
+            <h2>Jujutsu Kaisen</h2>
+            <div class="manga-tag">Supernatural</div>
+        </div>
+        <div class="manga" data-category="action">
+            <h2>Solo Leveling</h2>
+            <div class="manga-tag">Action</div>
+        </div>
+        <div class="manga" data-category="supernatural">
+            <h2>Omniscient Reader's Viewpoint</h2>
+            <div class="manga-tag">Supernatural</div>
+        </div>
+        <div class="manga" data-category="sports">
+            <h2>Blue Lock</h2>
+            <div class="manga-tag">Sports</div>
+        </div>
+        <div class="manga" data-category="romance">
+            <h2>Domestic na Kanajo</h2>
+            <div class="manga-tag">Romance</div>
+        </div>
+        <div class="manga" data-category="romance">
+            <h2>Kanojo Okarishimasu</h2>
+            <div class="manga-tag">Romance</div>
+        </div>
+    </div>
+
+    <script>
+        // Star animation
+        function createStars() {
+            const background = document.getElementById('starBackground');
+            const starCount = 200;
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.width = `${Math.random() * 3}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                star.style.opacity = Math.random();
+                background.appendChild(star);
+            }
+        }
+
+        // Filter functionality
+        function setupFilters() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const mangaItems = document.querySelectorAll('.manga');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const filter = btn.getAttribute('data-filter');
+                    
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    mangaItems.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+
+        createStars();
+        setupFilters();
+    </script>
+</body>
+</html>

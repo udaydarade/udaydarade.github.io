@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Your Match</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url(./images/swipeimage.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        /* Container */
+        .container {
+            transform: translateY(-60px) translateX(20px);
+            text-align: center;
+        }
+
+        #swipeheading {
+            font-weight: bold;
+            background-image: linear-gradient(90deg,
+                    rgb(255, 20, 147),
+                    rgb(255, 140, 0),
+                    rgb(0, 191, 255),
+                    rgb(0, 100, 0),
+                    rgb(139, 0, 139),
+                    rgb(148, 0, 211),
+                    rgb(75, 0, 130));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Profile container */
+        .profile-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            width: 400px;
+            position: relative;
+            transition: transform 0.3s ease-in-out;
+            background-image: linear-gradient(90deg,
+                    #ADD8E6,
+                    #87CEEB,
+                    #00BFFF);
+            animation: grow 10s infinite alternate;
+        }
+
+        @keyframes grow {
+            0% { transform: scale(1); }
+            10% { transform: scale(1.02); }
+            20% { transform: scale(1.04); }
+            30% { transform: scale(1.06); }
+            40% { transform: scale(1.08); }
+            50% { transform: scale(1.10); }
+            60% { transform: scale(1.08); }
+            70% { transform: scale(1.06); }
+            80% { transform: scale(1.04); }
+            90% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .profile-info {
+            margin-left: 20px;
+        }
+
+        .profile-name {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .profile-details {
+            margin-bottom: 5px;
+        }
+
+        .detail-label {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        /* Swipe buttons */
+        .swipe-button {
+            background-color: #3399ff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 10px;
+        }
+
+        .profile-container.swiping {
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-container.out-left,
+        .profile-container.out-right {
+            opacity: 0.5;
+        }
+
+        #prev-button,
+        #next-button {
+            position: fixed;
+            top: 50%;
+            width: 100px;
+            height: 100px;
+            transform: translateY(-50%);
+            border-radius: 50%;
+        }
+
+        #prev-button { left: 20px; }
+        #next-button { right: 20px; }
+
+        #logoutbutton {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 999;
+            width: 100px;
+            border-radius: 50%;
+        }
+
+        #logoutbutton:hover {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 999;
+            width: 120px;
+            border-radius: 50%;
+        }
+
+        #backbutton {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 999;
+            width: 100px;
+            border-radius: 50%;
+        }
+
+        #backbutton:hover {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 999;
+            width: 120px;
+            border-radius: 50%;
+        }
+
+        .circle-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .circle-label {
+            position: absolute;
+            font-size: 2em;
+            color: deepskyblue;
+        }
+
+        .progress-ring__circle {
+            transition: stroke-dashoffset 0.6s ease;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wholepage">
+        <div class="container">
+            <h1 id="swipeheading">Swipe through profiles</h1>
+            <div class="profile-container">
+                <img src="" alt="Profile Picture" class="profile-image">
+                <div class="profile-info">
+                    <h2 class="profile-name">Name</h2>
+                    <p class="profile-details">
+                        <span class="detail-label">IITB Roll Number:</span>
+                        <span class="detail-value" id="roll-number"></span>
+                    </p>
+                    <p class="profile-details">
+                        <span class="detail-label">Year of Study:</span>
+                        <span class="detail-value" id="year-of-study"></span>
+                    </p>
+                    <p class="profile-details">
+                        <span class="detail-label">Age:</span>
+                        <span class="detail-value" id="age"></span>
+                    </p>
+                    <p class="profile-details">
+                        <span class="detail-label">Gender:</span>
+                        <span class="detail-value" id="gender"></span>
+                    </p>
+                    <p class="profile-details">
+                        <span class="detail-label">Interests:</span>
+                        <span class="detail-value" id="interests"></span>
+                    </p>
+                    <p class="profile-details">
+                        <span class="detail-label">Hobbies:</span>
+                        <span class="detail-value" id="hobbies"></span>
+                    </p>
+                </div>
+            </div>
+            <div class="circle-container">
+                <svg class="progress-ring" width="200" height="200">
+                    <circle class="progress-ring__circle" stroke="deepskyblue" stroke-width="10" fill="transparent"
+                        r="90" cx="100" cy="100" />
+                </svg>
+                <span id="label" class="circle-label">0%</span>
+            </div>
+        </div>
+
+        <img src="images/back_button.png" alt="Previous" id="prev-button" style="cursor: pointer;">
+        <audio id="backimagesound" src="images/back.mp3" preload="auto"></audio>
+        <img src="images/front button.png" alt="Next" id="next-button" style="cursor: pointer;">
+        <audio id="nextbuttonsound" src="images/next.mp3" preload="auto"></audio>
+        <img src="images/logoutbutton.png" alt="Logout" id="logoutbutton" style="cursor: pointer;">
+        <audio src="images/clicked.mp3" id="clickaudio" preload="auto"></audio>
+        <img src="images/gobackbutton.png" alt="Back" id="backbutton" style="cursor: pointer;">
+    </div>
+
+    <script>
+        const circle = document.querySelector('.progress-ring__circle');
+        const radius = circle.r.baseVal.value;
+        const circumference = radius * 2 * Math.PI;
+
+        circle.style.strokeDasharray = `${circumference} ${circumference}`;
+        circle.style.strokeDashoffset = circumference;
+
+        function setProgress(percent) {
+            const offset = circumference - percent / 100 * circumference;
+            circle.style.strokeDashoffset = offset;
+            document.getElementById('label').textContent = percent + '%';
+        }
+
+        // Retrieve user data from local storage
+        const user = JSON.parse(localStorage.getItem('formData'));
+        console.log(user);
+
+        const profileContainer = document.querySelector('.profile-container');
+        const profileImage = document.querySelector('.profile-image');
+        const profileName = document.querySelector('.profile-name');
+        const rollNumberValue = document.getElementById('roll-number');
+        const yearOfStudyValue = document.getElementById('year-of-study');
+        const ageValue = document.getElementById('age');
+        const genderValue = document.getElementById('gender');
+        const interestsValue = document.getElementById('interests');
+        const hobbiesValue = document.getElementById('hobbies');
+        const prevButton = document.getElementById('prev-button');
+        const nextButton = document.getElementById('next-button');
+        const prevSound = document.getElementById('backimagesound');
+        const nextSound = document.getElementById('nextbuttonsound');
+
+        let currentProfileIndex = 0;
+        let profiles = [];
+
+        fetch('students.json')
+            .then(response => response.json())
+            .then(data => {
+                profiles = data;
+                displayProfile(currentProfileIndex);
+            })
+            .catch(error => console.error('Error fetching data:', error));
+
+        function displayProfile(index) {
+            const profile = profiles[index];
+            profileImage.src = `${profile.Photo}`;
+            profileName.textContent = profile.Name;
+            rollNumberValue.textContent = profile['IITB Roll Number'];
+            yearOfStudyValue.textContent = profile['Year of Study'];
+            ageValue.textContent = profile.Age;
+            genderValue.textContent = profile.Gender;
+            interestsValue.textContent = profile.Interests.join(', ');
+            hobbiesValue.textContent = profile.Hobbies.join(', ');
+
+            // Calculate match percentage
+            let interestscore = 0;
+            let hobbiescore = 0;
+            for (const interest of user.Interests) {
+                if (profile.Interests.includes(interest)) {
+                    interestscore++;
+                }
+            }
+            for (const hobby of user.Hobbies) {
+                if (profile.Hobbies.includes(hobby)) {
+                    hobbiescore++;
+                }
+            }
+            const userinterests = user.Interests.length;
+            const userhobbies = user.Hobbies.length;
+            const bestmatchinterest = profile.Interests.length;
+            const bestmatchhobbies = profile.Hobbies.length;
+
+            interestscore = Math.max(0.5, 2 * interestscore);
+            hobbiescore = Math.max(0.5, 2 * hobbiescore);
+
+            const studentYearOfStudy = parseInt(profile['Year of Study'].slice(0, -1), 10) || 0;
+            const yearDiff = Math.abs(user['year-of-study'] - studentYearOfStudy);
+            const ageDiff = Math.abs(user['age'] - profile['Age']);
+            const percentagematch = Math.max(10, (100 - (yearDiff) - (ageDiff / 2) - 2 * (userinterests - (interestscore / 2)) - 4 * (bestmatchinterest - (interestscore / 2)) - 3 * (bestmatchhobbies - (hobbiescore / 2)) - (userhobbies - (hobbiescore / 2))));
+            setTimeout(() => setProgress(percentagematch), 100); 
+        }
+
+        // Handle next button click
+        nextButton.addEventListener('click', () => {
+            // prevSound.currentTime = 0;
+            // prevSound.play();
+            currentProfileIndex++;
+            if (currentProfileIndex >= profiles.length) {
+                currentProfileIndex = profiles.length - 1;
+            }
+            displayProfile(currentProfileIndex);
+        });
+
+        // Handle previous button click
+        prevButton.addEventListener('click', () => {
+            // nextSound.currentTime = 0;
+            // nextSound.play();
+            currentProfileIndex--;
+            if (currentProfileIndex < 0) {
+                currentProfileIndex = 0;
+            }
+            displayProfile(currentProfileIndex);
+        });
+
+        // Handle logout button click
+        logoutbutton.addEventListener('click', () => {
+            window.location.href = 'login.html';
+        });
+
+        // Handle back button click
+        backbutton.addEventListener('click', () => {
+            window.location.href = 'percentageall.html';
+        });
+    </script>
+</body>
+
+
+</html>

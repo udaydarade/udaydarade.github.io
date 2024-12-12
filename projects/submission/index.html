@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Captcha Verification</title>
+  <style>
+    /* Internal CSS */
+    body {
+        background-image: url(./images/Designer\ \(13\).png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        display: flex; /* Use flexbox for centering */
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh; /* Ensure full viewport height */
+        margin: 0; /* Remove default margin */
+    }
+    .container {
+      width: 400px;
+      margin: 50px auto;
+      text-align: center;
+    }
+
+    .captcha-container {
+      display: inline-block;
+      border: 1px solid #ccc;
+      padding: 10px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    #user-input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+    }
+
+    #verify-button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    #message {
+      margin-top: 10px;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Verify you are a human </h1>
+    <p style="font-size: large; color: hotpink;">At present, our service is only for human connections :)</p>
+    <p>Please enter the characters displayed below:</p>
+    <div class="captcha-container">
+      <span id="captcha-text"></span>
+    </div>
+    <input type="text" id="user-input" maxlength="6" placeholder="Enter Captcha Here" onclick="playClickSound()" required>
+    <button id="verify-button">Verify</button>
+    <p id="message"></p>
+    <!-- <audio src="./images/clicked.mp3" id="clickedsound"></audio> -->
+  </div>
+  <script>
+    function playClickSound() {
+      const clickSound = new Audio('./images/clicked.mp3');
+      clickSound.play();
+    }
+
+    // Internal JavaScript
+    const captchaText = document.getElementById('captcha-text');
+    const userInput = document.getElementById('user-input');
+    const verifyButton = document.getElementById('verify-button');
+    const message = document.getElementById('message');
+
+    // Generate random captcha text (letters only)
+    function generateCaptcha() {
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+      let captcha = '';
+      for (let i = 0; i < 6; i++) {
+        captcha += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+      captchaText.textContent = captcha;
+      return captcha;
+    }
+
+    var correctCaptcha = generateCaptcha();
+
+    // Event listener for the verify button
+    verifyButton.addEventListener('click', () => {
+      const clickSound = new Audio('./images/clicked.mp3');
+      clickSound.play();
+      const userEntry = userInput.value.trim();
+      if (userEntry === correctCaptcha) {
+        message.textContent = 'Captcha verified!';
+        window.location.href = 'login.html'; // Redirect to login page on successful verification
+      } else {
+        message.textContent = 'Incorrect captcha, please try again.';
+        userInput.value = ''; // Clear user input on wrong attempt
+        correctCaptcha = generateCaptcha(); // Generate new captcha text for another attempt
+      }
+    });
+  </script>
+</body>
+</html>
